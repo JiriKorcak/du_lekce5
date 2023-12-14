@@ -1,4 +1,4 @@
-package com.engeto;
+package com.engeto.plants;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -20,18 +20,14 @@ public class Plant {
         this.frequencyOfWatering = frequencyOfWatering;
     }
     public Plant(String name, LocalDate planted, int frequencyOfWatering) {
-        this.name = name;
-        this.notes = " ";
-        this.planted = planted;
-        this.watering = LocalDate.now();
-        this.frequencyOfWatering = frequencyOfWatering;
+        this(name, " ", planted, LocalDate.now(), frequencyOfWatering);
     }
     public Plant(String name) {
-        this.name = name;
-        this.notes = " ";
-        this.planted = LocalDate.now();
-        this.watering = LocalDate.now();
-        this.frequencyOfWatering = 7;
+        this(name," ", LocalDate.now(), LocalDate.now(), 7);
+    }
+
+    public Plant(String name, LocalDate planted, LocalDate watering, int frequencyOfWatering) {
+        this(name, " ", planted, watering, frequencyOfWatering);
     }
 
     public String getName() {
@@ -66,10 +62,14 @@ public class Plant {
     }
 
     public String getWateringCz() {
-        return planted.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
+        return watering.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
     }
 
-    public void setWatering(LocalDate watering) {
+    public void setWatering(LocalDate watering) throws PlantException {
+        if (planted.isAfter(watering)) {
+            throw new PlantException("Datum zálivky musí být starší než datum zasazení (" +
+                    planted + ") - zadáno: " + watering + ".");
+        }
         this.watering = watering;
     }
 
@@ -77,7 +77,10 @@ public class Plant {
         return frequencyOfWatering;
     }
 
-    public void setFrequencyOfWatering(int frequencyOfWatering) {
+    public void setFrequencyOfWatering(int frequencyOfWatering) throws PlantException {
+        if (frequencyOfWatering <= 0) {
+            throw new PlantException("Frekvence zálivky musí být větší než 0 - zadáno: " + frequencyOfWatering + ".");
+        }
         this.frequencyOfWatering = frequencyOfWatering;
     }
 
@@ -85,8 +88,18 @@ public class Plant {
         LocalDate nextWatering = watering.plusDays(frequencyOfWatering);
         return nextWatering.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM));
     }
-    public void getWateringInfo() {
-        System.out.println("Poslední zálivka: " + getWateringCz() +
-                "\nDoporučená další zálivka: " + getNextWateringCz());
+    public String getWateringInfo() {
+        return "Květina: " + name +
+                ", poslední zálivka: " + getWateringCz() +
+                ", doporučená další zálivka: " + getNextWateringCz();
+    }
+
+    @Override
+    public String toString() {
+        return name +", " + notes + " -" +
+                " zasazena: " + getPlantedCz() +
+                ", naposledy zalita: " + getWateringCz() +
+                ", zalévat po " + frequencyOfWatering +
+                " dnech. \n";
     }
 }
