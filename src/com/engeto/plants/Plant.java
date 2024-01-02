@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
-public class Plant {
+public class Plant implements Comparable<Plant> {
 
     private String name;
     private String notes;
@@ -101,5 +101,10 @@ public class Plant {
                 ", naposledy zalita: " + getWateringCz() +
                 ", zalévat po " + frequencyOfWatering +
                 " dnech. \n";
+    }
+
+    @Override
+    public int compareTo(Plant second) {
+        return this.name.compareTo(second.name);
     }
 }

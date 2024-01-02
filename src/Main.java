@@ -1,10 +1,13 @@
 
+import com.engeto.plants.CustomNameComparator;
 import com.engeto.plants.ListOfPlants;
 import com.engeto.plants.Plant;
 import com.engeto.plants.PlantException;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
+;
 
 import static java.util.Comparator.comparing;
 
@@ -75,6 +78,11 @@ public class Main {
 //        }
 //
 //        System.out.println(listOfPlants2.getListOfPlants());
+
+////        !!! ----- opsané z odkazu, nevim proč to nefunguje ----
+//
+//        Collections.sort(listOfPlants1, new CustomNameComparator());
+//        listOfPlants1.forEach(c -> System.out.println(c.getName()));
 
 
 ////  -----  asi jsem někde přehlídl info, ale nevim jak na ten sort -----
