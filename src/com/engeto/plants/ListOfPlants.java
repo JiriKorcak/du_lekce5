@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static java.util.Comparator.comparing;
+
 public class ListOfPlants {
 
     private List<Plant> listOfPlants = new ArrayList<>();
@@ -74,5 +76,12 @@ public class ListOfPlants {
         }
     }
 
+    public void sortByName() {
+        listOfPlants.sort(comparing(Plant::getName));
+    }
 
+
+    public void sortByWatering() {
+        listOfPlants.sort(comparing(Plant::getWatering));
+    }
 }

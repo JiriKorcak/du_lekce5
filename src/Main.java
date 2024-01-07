@@ -1,15 +1,9 @@
 
-import com.engeto.plants.CustomNameComparator;
 import com.engeto.plants.ListOfPlants;
 import com.engeto.plants.Plant;
 import com.engeto.plants.PlantException;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-;
-
-import static java.util.Comparator.comparing;
 
 
 public class Main {
@@ -47,6 +41,8 @@ public class Main {
 
 
         System.out.println(listOfPlants1.getListOfPlants());
+
+
 //        System.out.println(listOfPlants1.getPlant(2));
 
 
@@ -67,6 +63,7 @@ public class Main {
         } catch (PlantException e) {
             System.err.println("Chyba při zápisu do souboru : " + e.getLocalizedMessage());
         }
+
 ////  -----  Znovu načtení vytvořeného souboru -----
 //
 //        ListOfPlants listOfPlants2 = new ListOfPlants();
@@ -79,15 +76,11 @@ public class Main {
 //
 //        System.out.println(listOfPlants2.getListOfPlants());
 
-////        !!! ----- opsané z odkazu, nevim proč to nefunguje ----
-//
-//        Collections.sort(listOfPlants1, new CustomNameComparator());
-//        listOfPlants1.forEach(c -> System.out.println(c.getName()));
+        listOfPlants1.sortByName();
+        System.out.println("\n Seřazení podle jména: \n" + listOfPlants1.getListOfPlants());
 
-
-////  -----  asi jsem někde přehlídl info, ale nevim jak na ten sort -----
-//        ListOfPlants listOfPlantsSortByName = listOfPlants1;
-//        Collections.sort(listOfPlantsSortByName, comparing(Plant::getName));
+        listOfPlants1.sortByWatering();
+        System.out.println("\n Seřazení podle datat poslední zálivky: \n" + listOfPlants1.getListOfPlants());
 
     }
 }
